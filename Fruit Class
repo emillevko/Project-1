@@ -1,0 +1,42 @@
+package MarketPlace;
+
+public class Fruit extends MarketProduct {
+
+	private double weightInKg;
+	private int pricePerKg;
+	
+	public Fruit(String name, double weight, int price){
+		
+		super(name);							
+		this.weightInKg = weight;
+		this.pricePerKg = price;
+		
+	}
+	
+	public int getCost() {
+		double cost = pricePerKg * weightInKg;			
+		
+		int roundedCost = (int)cost;
+		return roundedCost;
+	}
+	
+	public boolean equals(Object object) {						
+		
+		boolean isEqual = false;
+		
+		if(!(object instanceof Fruit)) {
+			return false;
+		}
+		
+		Fruit fruit = (Fruit) object;
+		
+		if (fruit.getCost() == this.getCost() &&
+		fruit.getName().equalsIgnoreCase(this.getName()) &&
+		fruit.weightInKg == this.weightInKg) {
+			
+			return true;
+		}
+		return isEqual;
+	}
+
+}
