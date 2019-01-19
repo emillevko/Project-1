@@ -1,0 +1,18 @@
+package MarketPlace;
+
+public class SeasonalFruit extends Fruit{
+
+	public SeasonalFruit(String nameOfProd, double weightInKg, int pricePerKg) {
+	
+		super (nameOfProd,weightInKg,pricePerKg);
+		
+	}
+
+	public int getCost() {
+
+		int costOfSeasonalFruit = super.getCost() * 85/100;
+		return costOfSeasonalFruit;
+		
+	}
+	
+}
