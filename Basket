@@ -1,0 +1,130 @@
+package MarketPlace;
+
+public class Basket {
+
+	private MarketProduct[] marketProducts;
+	
+	public Basket() {								
+		marketProducts = new MarketProduct [0];				
+	}
+	
+	public MarketProduct[] getProducts() { 			
+		
+		MarketProduct [] shallowCopy = new MarketProduct [marketProducts.length]; 		
+		
+		for (int i=0; i<shallowCopy.length; i++) {
+			shallowCopy [i] = marketProducts [i];	
+		}
+		return shallowCopy;
+		
+	}
+	
+	
+	public void add(MarketProduct marketProduct) {				
+		
+		MarketProduct [] copyOfMktProd = new MarketProduct [marketProducts.length + 1]; 		//make a new array longer by 1.
+		
+		for (int i=0; i<marketProducts.length; i++) {
+			copyOfMktProd [i] = marketProducts [i];							
+		}
+																
+		copyOfMktProd [copyOfMktProd.length -1] = marketProduct; 			//insert object marketProduct to end of the array
+		marketProducts = copyOfMktProd;												
+		
+		}
+	
+	public boolean remove(MarketProduct marketProd) {
+		int indexToRemove  =-1;
+		for(int i = 0; i < this.marketProducts.length; i++) {
+			if(marketProducts[i].equals(marketProd)) {
+				indexToRemove = i;
+				break;
+			}
+		}
+		
+		if(indexToRemove == -1) {
+			return false;
+		}
+		
+		MarketProduct [] copyOfMktProd = new MarketProduct [marketProducts.length - 1]; 				
+		int j=0;
+		for (int i=0; i<marketProducts.length; i++) {
+			if(i==indexToRemove) {											//when at index i, do not add...skip the continuation.
+				continue;
+			}
+			copyOfMktProd [j] = marketProducts [i];	
+			j++;
+		}
+		marketProducts = copyOfMktProd;
+		return indexToRemove > -1;
+	}
+	
+	
+	
+	public void clear() {					
+		
+		this.marketProducts = new MarketProduct [0];
+	}
+	
+	public int getNumOfProducts() {
+		return this.marketProducts.length;
+	}
+
+	public int getSubTotal() {
+
+		int subTotal = 0;
+
+		for (int i = 0; i < marketProducts.length; i++) { // loop through array and add up the costs
+
+			int priceOfCurrentProd = marketProducts[i].getCost(); 
+			subTotal += priceOfCurrentProd; 
+		}
+
+		return subTotal;
+	}
+	
+	public int getTotalTax() {
+		
+		double totalTax = 0;
+		
+		for (int i=0; i<this.marketProducts.length; i++) {				//need to only calculate tax for jam
+			if(this.marketProducts[i].getClass().equals(Jam.class)) {
+				totalTax += marketProducts[i].getCost()*0.15;
+			}
+		}
+		
+		return (int) totalTax;
+	}
+	
+	public int getTotalCost() {
+		
+		int totalCost = getSubTotal() + getTotalTax();
+		return totalCost;
+		
+	}
+	
+	private static String formatPrice(int price) {
+		String formattedPrice = "-";
+		if (price > 0) {
+			int dollars = price/100;
+			int cents = price % 100;
+			formattedPrice = dollars + "." + cents;
+			
+		}
+		return formattedPrice;
+	}
+	
+	public String toString() {					
+		
+		String receipt ="";
+		String topOfReceipt = "";
+	
+		for (int i=0; i<this.marketProducts.length; i++) {
+			String formattedPrice = Basket.formatPrice(this.marketProducts[i].getCost());
+			topOfReceipt += this.marketProducts[i].getName() + "\t" + formattedPrice +"\n";  
+		}
+		receipt = topOfReceipt + "\n\n" + "SubTotal" + "\t" + Basket.formatPrice(this.getSubTotal()) + "\n" + "Total Tax" + "\t" + Basket.formatPrice(this.getTotalTax()) + "\n\n" + "Total Cost" + "\t" + Basket.formatPrice(this.getTotalCost());
+	
+		return receipt;
+	}	
+}
