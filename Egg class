@@ -1,0 +1,39 @@
+package MarketPlace;
+
+public class Egg extends MarketProduct{
+
+	private int numberOfEggs;
+	private int pricePerDozen;
+
+	public Egg(String name, int numberRequired, int pricePerDozen){
+
+		super(name);							
+		this.numberOfEggs=numberRequired;
+		this.pricePerDozen = pricePerDozen;
+	
+	}
+
+	public int getCost() {
+		
+		int cost = numberOfEggs*pricePerDozen/12;
+		return cost; 
+	}
+	
+	public boolean equals(Object object) {						
+		
+		boolean isEqual = false;						// initialize the boolean as false
+		
+		if(!(object instanceof Egg)) {
+			return false;
+		}
+		
+		Egg egg = (Egg)object;
+		if(egg.getCost() == this.getCost() && 
+		egg.getName().equalsIgnoreCase(this.getName()) &&
+		egg.numberOfEggs == this.numberOfEggs) {			
+			
+			return true; 
+		}
+		return isEqual;
+	}
+}
