@@ -1,0 +1,69 @@
+package MarketPlace;
+
+public class Customer {
+
+	private String name;
+	private int balanceInCents;
+	private Basket basket; 				
+
+	public Customer(String nameOfCust, int initialBal) {
+		this.name = nameOfCust;
+		this.balanceInCents = initialBal;
+		this.basket = new Basket();
+	}
+
+	public String getName() {
+		return this.name;
+	}
+
+	public int getBalance() {
+		return this.balanceInCents;
+	}
+
+	public Basket getBasket() { 
+		return this.basket;
+	}
+
+	public int addFunds(int amountAdded) {
+		
+		if (amountAdded < 0) {
+			throw new IllegalArgumentException("can't add negative amount");
+		}
+		
+		this.balanceInCents += amountAdded;
+		return this.balanceInCents;
+		
+	}
+
+	public void addToBasket(MarketProduct marketProd) {
+		this.basket.add(marketProd);
+	}	
+
+	public boolean removeFromBasket(MarketProduct marketProd) {			
+		
+		 return this.basket.remove(marketProd);		
+	}
+	
+	public String checkOut() {
+		
+		String receipt;
+		
+		int balanceOfCustomer, costToPay;
+		
+		balanceOfCustomer = this.getBalance(); 		
+		costToPay = this.basket.getTotalCost();
+		
+		if (balanceOfCustomer < costToPay) {
+			throw new IllegalStateException();
+		}
+		
+		//need to make balance = original balance - total cost
+		this.balanceInCents = this.balanceInCents - costToPay;
+		//print receipt
+		receipt = this.basket.toString();
+
+		this.basket.clear();
+		
+		return receipt;
+	}
+}
