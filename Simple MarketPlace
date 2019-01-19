@@ -1,0 +1,20 @@
+package MarketPlace;
+
+public abstract class MarketProduct {
+
+	private String name;
+	
+	public MarketProduct(String name){		//constructor that takes String as input
+		this.name = name;
+	}
+	
+	public final String getName(){					//get Name method 
+		return this.name;
+	}
+	
+	public abstract int getCost();							//getCost method
+	
+
+	public abstract boolean equals(Object object);						
+	
+}
