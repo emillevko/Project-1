@@ -1,0 +1,39 @@
+package MarketPlace;
+
+public class Jam extends MarketProduct{
+
+	private int numberOfJars;
+	private int pricePerJar;
+	
+	public Jam(String name, int numJars, int priceJar) {
+
+		super(name);
+		this.numberOfJars = numJars;
+		this.pricePerJar = priceJar;
+		
+	}
+	
+	public int getCost() {
+	
+		int cost = numberOfJars * pricePerJar;
+		return cost;
+		
+	}
+
+	public boolean equals(Object object) {
+		
+		if(!(object instanceof Jam)) {
+			return false;
+		}
+		
+		Jam jam = (Jam) object;
+		
+		if (jam.getCost() == this.getCost() &&
+			jam.getName().equalsIgnoreCase(this.getName()) &&
+			jam.numberOfJars == this.numberOfJars) {
+			return true;
+		}
+		return false;
+	}
+	
+}
