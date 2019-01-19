@@ -4,15 +4,15 @@ public abstract class MarketProduct {
 
 	private String name;
 	
-	public MarketProduct(String name){		//constructor that takes String as input
+	public MarketProduct(String name){	
 		this.name = name;
 	}
 	
-	public final String getName(){					//get Name method 
+	public final String getName(){	 
 		return this.name;
 	}
 	
-	public abstract int getCost();							//getCost method
+	public abstract int getCost();
 	
 
 	public abstract boolean equals(Object object);						
